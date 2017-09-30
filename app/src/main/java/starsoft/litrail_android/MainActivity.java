@@ -1,6 +1,7 @@
 package starsoft.litrail_android;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     return true;
                 case R.id.navigation_map:
+                    Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
+                    MainActivity.this.startActivity(myIntent);
                     return true;
                 case R.id.navigation_notifications:
                     return true;

@@ -45,6 +45,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="starsoft.litrail_android.MainActivity" />
         </activity>
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

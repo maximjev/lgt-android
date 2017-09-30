@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     return true;
                 case R.id.navigation_map:
-                    Intent myIntent = new Intent(MainActivity.this, MainActivity.class);
+                    Intent myIntent = new Intent(MainActivity.this, MapsActivity.class);
                     MainActivity.this.startActivity(myIntent);
                     return true;
                 case R.id.navigation_notifications:

@@ -10,21 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import starsoft.litrail_android.MainActivity;
+import starsoft.litrail_android.Model.Message;
+import starsoft.litrail_android.Model.Messages;
 import starsoft.litrail_android.R;
 import starsoft.litrail_android.Model.SavedRoute;
 import starsoft.litrail_android.Model.SavedRoutes;
 
-public class SavedRoutesFragment extends Fragment {
+public class MessagesFragment extends Fragment {
 
-    public static final String TAG = "SavedRoutesFragment";
+    public static final String TAG = "MessagesFragment";
 
     private OnListFragmentInteractionListener mListener;
 
-    public SavedRoutesFragment() {
+    public MessagesFragment() {
     }
 
-    public static SavedRoutesFragment newInstance() {
-        SavedRoutesFragment fragment = new SavedRoutesFragment();
+    public static MessagesFragment newInstance() {
+        MessagesFragment fragment = new MessagesFragment();
         return fragment;
     }
 
@@ -40,13 +42,13 @@ public class SavedRoutesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_routes_list, container, false);
-        getActivity().setTitle("Išsaugoti maršrutai");
+        View view = inflater.inflate(R.layout.fragment_messages_list, container, false);
+        getActivity().setTitle("Pranešimai");
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new SavedRoutesRecyclerViewAdapter(SavedRoutes.ITEMS, mListener));
+            recyclerView.setAdapter(new MessagesRecyclerViewAdapter(Messages.ITEMS, mListener));
         }
         ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         return view;
@@ -69,6 +71,6 @@ public class SavedRoutesFragment extends Fragment {
     }
 
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(SavedRoute route);
+        void onListFragmentInteraction(Message message);
     }
 }

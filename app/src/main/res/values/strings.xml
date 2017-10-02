@@ -25,4 +25,9 @@
     <string name="arrivalTime">Atvykimo laikas</string>
     <string name="duration">Trukmė</string>
     <string name="testTime">00:00</string>
+    <string name="message_title_sample">Pranešimo pavadinimas</string>
+    <string name="content_sample">Lorem ipsum dolor sit amet, mea ei veri saepe nostrud, sit ad modus diceret, id duo diceret hendrerit. Ei sea possit atomorum. Apeirian posidonium sit id, mea eripuit imperdiet eloquentiam at, eum dicat epicurei ne. Sit in eius oporteat erroribus, vis phaedrum reformidans et. Pro ut ludus soluta tincidunt, audiam repudiandae te mel.
+</string>
+    <string name="sample_date">2017-10-12</string>
+    <string name="published">Publikuota:</string>
 </resources>

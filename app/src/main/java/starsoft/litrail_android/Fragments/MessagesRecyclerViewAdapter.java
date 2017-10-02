@@ -6,17 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import starsoft.litrail_android.Model.Message;
+import starsoft.litrail_android.Model.Messages;
 import starsoft.litrail_android.R;
 import starsoft.litrail_android.Model.SavedRoute;
 
 import java.util.List;
 
-public class SavedRoutesRecyclerViewAdapter extends RecyclerView.Adapter<SavedRoutesRecyclerViewAdapter.ViewHolder> {
+public class MessagesRecyclerViewAdapter extends RecyclerView.Adapter<MessagesRecyclerViewAdapter.ViewHolder> {
 
-    private final List<SavedRoute> mValues;
-    private final SavedRoutesFragment.OnListFragmentInteractionListener mListener;
+    private final List<Message> mValues;
+    private final MessagesFragment.OnListFragmentInteractionListener mListener;
 
-    public SavedRoutesRecyclerViewAdapter(List<SavedRoute> items, SavedRoutesFragment.OnListFragmentInteractionListener listener) {
+    public MessagesRecyclerViewAdapter(List<Message> items, MessagesFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -24,15 +26,16 @@ public class SavedRoutesRecyclerViewAdapter extends RecyclerView.Adapter<SavedRo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_routes, parent, false);
+                .inflate(R.layout.fragment_messages, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.route = mValues.get(position);
-        holder.departureLocation.setText(mValues.get(position).departureStation);
-        holder.arrivalLocation.setText(mValues.get(position).arrivalStation);
+        holder.message = mValues.get(position);
+        holder.titleTextview.setText(mValues.get(position).title);
+        holder.contentTextview.setText(mValues.get(position).content);
+        holder.dateTextview.setText(mValues.get(position).date);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +43,7 @@ public class SavedRoutesRecyclerViewAdapter extends RecyclerView.Adapter<SavedRo
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.route);
+                    mListener.onListFragmentInteraction(holder.message);
                 }
             }
         });
@@ -53,15 +56,17 @@ public class SavedRoutesRecyclerViewAdapter extends RecyclerView.Adapter<SavedRo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView departureLocation;
-        public final TextView arrivalLocation;
-        public SavedRoute route;
+        public final TextView titleTextview;
+        public final TextView contentTextview;
+        public final TextView dateTextview;
+        public Message message;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            departureLocation = (TextView) view.findViewById(R.id.messageDateTextView);
-            arrivalLocation = (TextView) view.findViewById(R.id.arrivalLocationTextView);
+            titleTextview = (TextView) view.findViewById(R.id.messageTitleTextView);
+            contentTextview = (TextView) view.findViewById(R.id.messageContentTextView);
+            dateTextview = (TextView) view.findViewById(R.id.messageDateTextView);
         }
 
     }

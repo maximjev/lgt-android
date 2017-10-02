@@ -15,6 +15,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.R;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
@@ -52,6 +53,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
+        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         return view;
     }

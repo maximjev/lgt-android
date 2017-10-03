@@ -30,10 +30,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public static MapFragment newInstance() {
-        MapFragment fragment = new MapFragment();
 //        Bundle args = new Bundle();
 //        fragment.setArguments(args);
-        return fragment;
+        return new MapFragment();
     }
 
     @Override
@@ -53,7 +52,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.onCreate(savedInstanceState);
         mapView.onResume();
         mapView.getMapAsync(this);
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getActivity()).showHomeAsUp(false);
 
         return view;
     }
@@ -69,9 +68,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
-
         }
+//        else {
+//        }
     }
 
     @Override
@@ -80,7 +79,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mListener = null;
     }
 
-    public interface OnFragmentInteractionListener {
+    interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
 

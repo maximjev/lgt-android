@@ -13,8 +13,6 @@ import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.Model.Message;
 import starsoft.litrail_android.Model.Messages;
 import starsoft.litrail_android.R;
-import starsoft.litrail_android.Model.SavedRoute;
-import starsoft.litrail_android.Model.SavedRoutes;
 
 public class MessagesFragment extends Fragment {
 
@@ -26,17 +24,16 @@ public class MessagesFragment extends Fragment {
     }
 
     public static MessagesFragment newInstance() {
-        MessagesFragment fragment = new MessagesFragment();
-        return fragment;
+        return new MessagesFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-
-        }
+        // TODO: duomenys iš atminties
+//        if (getArguments() != null) {
+//        }
     }
 
     @Override
@@ -50,7 +47,7 @@ public class MessagesFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MessagesRecyclerViewAdapter(Messages.ITEMS, mListener));
         }
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getActivity()).showHomeAsUp(false);
         return view;
     }
 
@@ -60,8 +57,10 @@ public class MessagesFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
         }
+//        else {
+//
+//        }
     }
 
     @Override
@@ -70,7 +69,7 @@ public class MessagesFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
+    interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Message message);
     }
 }

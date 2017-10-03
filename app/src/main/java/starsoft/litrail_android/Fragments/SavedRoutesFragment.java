@@ -24,17 +24,15 @@ public class SavedRoutesFragment extends Fragment {
     }
 
     public static SavedRoutesFragment newInstance() {
-        SavedRoutesFragment fragment = new SavedRoutesFragment();
-        return fragment;
+        return new SavedRoutesFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-
-        }
+//        if (getArguments() != null) {
+//        }
     }
 
     @Override
@@ -48,7 +46,7 @@ public class SavedRoutesFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new SavedRoutesRecyclerViewAdapter(SavedRoutes.ITEMS, mListener));
         }
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((MainActivity)getActivity()).showHomeAsUp(false);
         return view;
     }
 
@@ -58,8 +56,9 @@ public class SavedRoutesFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
         }
+//        else {
+//        }
     }
 
     @Override

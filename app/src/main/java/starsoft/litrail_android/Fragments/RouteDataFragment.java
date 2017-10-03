@@ -27,15 +27,14 @@ public class RouteDataFragment extends Fragment {
     }
 
     public static RouteDataFragment newInstance() {
-        RouteDataFragment fragment = new RouteDataFragment();
-        return fragment;
+        return new RouteDataFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-        }
+//        if (getArguments() != null) {
+//        }
     }
 
     @Override
@@ -44,6 +43,9 @@ public class RouteDataFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_route_data, container, false);
         departureLocationTextView = (TextView) view.findViewById(R.id.messageDateTextView);
         arrivalLocationTextView = (TextView) view.findViewById(R.id.arrivalLocationTextView);
+
+        ((MainActivity)getActivity()).showHomeAsUp(true);
+        getActivity().setTitle("Maršruto tvarkaraštis");
 
         Bundle bundle = getArguments();
         if (bundle.getString("DEPARTURE_STATION") != null)
@@ -57,8 +59,6 @@ public class RouteDataFragment extends Fragment {
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTime);
         recyclerView.setAdapter(new RouteDataRecyclerViewAdapter(RouteTimes.ITEMS, mListener));
 
-        ((MainActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         return view;
     }
 
@@ -68,9 +68,9 @@ public class RouteDataFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
-
         }
+//        else {
+//        }
     }
 
     @Override
@@ -79,7 +79,7 @@ public class RouteDataFragment extends Fragment {
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener {
+    interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(RouteTime item);
     }
 }

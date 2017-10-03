@@ -1,7 +1,6 @@
 package starsoft.litrail_android;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
@@ -16,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.gms.maps.MapView;
 
 import starsoft.litrail_android.Fragments.MapFragment;
 import starsoft.litrail_android.Fragments.MessagesFragment;
@@ -89,8 +90,7 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //noinspection deprecation
-        toolbar.setBackgroundDrawable(new ColorDrawable(getColor(R.color.actionBar)));
-
+        toolbar.setBackground(new ColorDrawable(getColor(R.color.actionBar)));
         timetableSearchFragment = TimetableSearchFragment.newInstance();
         savedRoutesFragment = SavedRoutesFragment.newInstance();
         mapFragment = MapFragment.newInstance();
@@ -98,27 +98,36 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
 
         final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.content, timetableSearchFragment).commit();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                 switch(parentFragmentTAG) {
-                     case TimetableSearchFragment.TAG:
-                         fragmentTransaction.replace(R.id.content, timetableSearchFragment).commit();
-                         currentFragmentTAG = parentFragmentTAG;
-                         parentFragmentTAG = "";
-                         break;
-                     case SavedRoutesFragment.TAG:
-                         fragmentTransaction.replace(R.id.content, savedRoutesFragment).commit();
-                         currentFragmentTAG = parentFragmentTAG;
-                         parentFragmentTAG = "";
-                         break;
-                     default:
-                         Log.d("Fragment", "Unmatched parent fragment");
-                         break;
-                 }
-             }});
+        toolbar.setNavigationOnClickListener(v -> {
+            final FragmentTransaction fragmentTransaction1 = getFragmentManager().beginTransaction();
+            switch(parentFragmentTAG) {
+                case TimetableSearchFragment.TAG:
+                    fragmentTransaction1.replace(R.id.content, timetableSearchFragment).commit();
+                    currentFragmentTAG = parentFragmentTAG;
+                    parentFragmentTAG = "";
+                    break;
+                case SavedRoutesFragment.TAG:
+                    fragmentTransaction1.replace(R.id.content, savedRoutesFragment).commit();
+                    currentFragmentTAG = parentFragmentTAG;
+                    parentFragmentTAG = "";
+                    break;
+                default:
+                    Log.d("Fragment", "Unmatched parent fragment");
+                    break;
+            }
+        });
+
+//        // Fixing Later Map loading Delay
+        new Thread(() -> {
+            try {
+                MapView mv = new MapView(getApplicationContext());
+                mv.onCreate(null);
+                mv.onPause();
+                mv.onDestroy();
+            }catch (Exception ignored){
+
+            }
+        }).start();
     }
 
     // Inicializuojamas viršutinis meniu langas
@@ -147,14 +156,14 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
 
     @Override
     public void onBackPressed() {
-        Log.d("methods", "onBackPressed");
-        if (getFragmentManager().getBackStackEntryCount() > 0 ){
-            getFragmentManager().popBackStack();
-        }
-
-        else {
+//        Log.d("methods", "onBackPressed");
+//        if (getFragmentManager().getBackStackEntryCount() > 0 ){
+//            getFragmentManager().popBackStack();
+//        }
+//
+//        else {
             super.onBackPressed();
-        }
+//        }
     }
 
     private void popUpAboutUsDialog() {
@@ -162,12 +171,7 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
         dialogBuilder.setTitle("Apie mus");
         dialogBuilder.setMessage("Litrail-android prototipas. \n" +
                 "Komandos Starsoft projektinis darbas.");
-        dialogBuilder.setPositiveButton("Uždaryti langą", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        dialogBuilder.setPositiveButton("Uždaryti langą", (dialog, which) -> dialog.dismiss());
         dialogBuilder.create().show();
     }
 
@@ -205,5 +209,11 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
         parentFragmentTAG = SavedRoutesFragment.TAG;
         currentFragmentTAG = RouteDataFragment.TAG;
         fragmentTransaction.commit();
+    }
+
+    public void showHomeAsUp(boolean status) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(status);
+        }
     }
 }

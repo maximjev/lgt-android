@@ -3,7 +3,7 @@ package starsoft.litrail_android.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Messages {
+public class MessagesDemo {
 
     public static final List<Message> ITEMS = new ArrayList<>();
 

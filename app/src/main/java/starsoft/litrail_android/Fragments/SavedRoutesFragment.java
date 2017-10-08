@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.R;
 import starsoft.litrail_android.Model.SavedRoute;
-import starsoft.litrail_android.Model.SavedRoutes;
+import starsoft.litrail_android.Model.SavedRoutesDemo;
 
 public class SavedRoutesFragment extends Fragment {
 
@@ -44,7 +44,7 @@ public class SavedRoutesFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new SavedRoutesRecyclerViewAdapter(SavedRoutes.ITEMS, mListener));
+            recyclerView.setAdapter(new SavedRoutesRecyclerViewAdapter(SavedRoutesDemo.ITEMS, mListener));
         }
         ((MainActivity)getActivity()).showHomeAsUp(false);
         return view;

@@ -1,12 +1,10 @@
 package starsoft.litrail_android.Fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -111,7 +109,7 @@ public class TimetableSearchFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putString("DEPARTURE_STATION", departureStationButton.getText().toString());
                 args.putString("ARRIVAL_STATION", arrivalStationButton.getText().toString());
-
+                args.putString("DEPARTURE_DATE", String.format("%1$tY-%1$tm-%1$td", departureDate));
                 onButtonPressed(Uri.parse("SavedRoutesFragment"), args);
             }
         });

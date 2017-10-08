@@ -52,7 +52,35 @@
                 tools:layout_editor_absoluteY="0dp" />
 
             <TextView
-                android:id="@+id/messageContentTextView"
+                android:id="@+id/departureDateLabel"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:text="@string/date"
+                android:textAppearance="@android:style/TextAppearance.Material.Small"
+                app:layout_constraintLeft_toLeftOf="@+id/departureDateTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/departureDateTextView"
+                android:layout_width="109dp"
+                android:layout_height="28dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:text="2017-10-11"
+                android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/departureDateLabel"
+                tools:layout_editor_absoluteX="12dp"
+                tools:layout_editor_absoluteY="13dp" />
+
+            <TextView
+                android:id="@+id/departureLocationLabel"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
@@ -67,7 +95,20 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/arrivalTimeLabel"
+                android:id="@+id/departureLocationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/test_place"
+                android:textAlignment="viewStart"
+                android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title"
+                app:layout_constraintLeft_toLeftOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/departureLocationLabel" />
+
+            <TextView
+                android:id="@+id/arrivalLocationLabel"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -82,19 +123,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/messageDateTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:text="@string/test_place"
-                android:textAlignment="viewStart"
-                android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title"
-                app:layout_constraintLeft_toLeftOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/messageContentTextView" />
-
-            <TextView
                 android:id="@+id/arrivalLocationTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,35 +133,8 @@
                 android:textAlignment="viewStart"
                 android:textAppearance="@android:style/TextAppearance.Material.Widget.Toolbar.Title"
                 app:layout_constraintLeft_toLeftOf="@+id/guideline2"
-                app:layout_constraintTop_toBottomOf="@+id/arrivalTimeLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/arrivalLocationLabel" />
 
-            <TextView
-                android:id="@+id/dateLabel"
-                android:layout_width="65dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:text="@string/date"
-                android:textAppearance="@android:style/TextAppearance.Material.Small"
-                app:layout_constraintLeft_toLeftOf="@+id/messageTitleTextView"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/messageTitleTextView"
-                android:layout_width="109dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="0dp"
-                android:text="2017-10-11"
-                android:textAppearance="@android:style/TextAppearance.Material.WindowTitle"
-                android:textSize="20sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateLabel"
-                tools:layout_editor_absoluteX="12dp"
-                tools:layout_editor_absoluteY="13dp" />
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>

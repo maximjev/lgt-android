@@ -3,7 +3,7 @@ package starsoft.litrail_android.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavedRoutes {
+public class SavedRoutesDemo {
 
     public static final List<SavedRoute> ITEMS = new ArrayList<SavedRoute>();
 

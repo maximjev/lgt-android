@@ -9,17 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.Model.RouteTime;
 import starsoft.litrail_android.R;
-import starsoft.litrail_android.Model.RouteTimes;
+import starsoft.litrail_android.Model.RouteTimeDemo;
 
 public class RouteDataFragment extends Fragment {
 
     public static final String TAG = "RouteDataFragment";
     public String departureLocation;
     public String arrivalLocation;
+    public String departureDate;
     public TextView departureLocationTextView;
+    public TextView departureDateTextView;
     public TextView arrivalLocationTextView;
     private OnListFragmentInteractionListener mListener;
 
@@ -41,8 +45,9 @@ public class RouteDataFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_route_data, container, false);
-        departureLocationTextView = (TextView) view.findViewById(R.id.messageDateTextView);
+        departureLocationTextView = (TextView) view.findViewById(R.id.departureLocationTextView);
         arrivalLocationTextView = (TextView) view.findViewById(R.id.arrivalLocationTextView);
+        departureDateTextView = (TextView) view.findViewById(R.id.departureDateTextView);
 
         ((MainActivity)getActivity()).showHomeAsUp(true);
         getActivity().setTitle("Maršruto tvarkaraštis");
@@ -50,14 +55,23 @@ public class RouteDataFragment extends Fragment {
         Bundle bundle = getArguments();
         if (bundle.getString("DEPARTURE_STATION") != null)
             departureLocation = bundle.getString("DEPARTURE_STATION");
-        departureLocationTextView.setText(departureLocation);
+
 
         if (bundle.getString("ARRIVAL_STATION") != null)
             arrivalLocation = bundle.getString("ARRIVAL_STATION");
 
+        if (bundle.getString("DEPARTURE_DATE") != null)
+            departureDate = bundle.getString("DEPARTURE_DATE");
+        else
+        {
+            departureDate = String.format("%1$tY-%1$tm-%1$td", Calendar.getInstance());
+        }
+
+        departureLocationTextView.setText(departureLocation);
         arrivalLocationTextView.setText(arrivalLocation);
+        departureDateTextView.setText(departureDate);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.listTime);
-        recyclerView.setAdapter(new RouteDataRecyclerViewAdapter(RouteTimes.ITEMS, mListener));
+        recyclerView.setAdapter(new RouteDataRecyclerViewAdapter(RouteTimeDemo.ITEMS, mListener));
 
         return view;
     }

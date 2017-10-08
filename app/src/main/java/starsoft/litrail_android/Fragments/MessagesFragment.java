@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.Model.Message;
-import starsoft.litrail_android.Model.Messages;
+import starsoft.litrail_android.Model.MessagesDemo;
 import starsoft.litrail_android.R;
 
 public class MessagesFragment extends Fragment {
@@ -45,7 +45,7 @@ public class MessagesFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MessagesRecyclerViewAdapter(Messages.ITEMS, mListener));
+            recyclerView.setAdapter(new MessagesRecyclerViewAdapter(MessagesDemo.ITEMS, mListener));
         }
         ((MainActivity)getActivity()).showHomeAsUp(false);
         return view;

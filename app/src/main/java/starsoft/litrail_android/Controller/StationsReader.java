@@ -8,7 +8,6 @@ import java.io.IOException;
 import starsoft.litrail_android.Model.Station;
 
 public class StationsReader extends ReaderJSON<Station> {
-
     private static final String TAG = "StationsReader";
 
     public StationsReader(Context context, int sourceID) {

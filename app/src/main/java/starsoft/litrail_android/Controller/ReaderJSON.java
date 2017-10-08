@@ -15,7 +15,6 @@ import java.util.List;
  */
 
 public abstract class ReaderJSON<T> {
-    private static final String TAG = "ReaderJSON";
     public InputStream targetStream;
 
     public ReaderJSON (Context context, int sourceId) {

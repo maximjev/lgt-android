@@ -2,17 +2,12 @@ package starsoft.litrail_android.Controller;
 
 import android.content.Context;
 import android.util.JsonReader;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Ramu on 04/10/2017.
- */
 
 public abstract class ReaderJSON<T> {
     public InputStream targetStream;

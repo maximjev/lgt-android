@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.R;
 import starsoft.litrail_android.Model.SavedRoute;
-import starsoft.litrail_android.Model.SavedRoutesDemo;
+import starsoft.litrail_android.Model.Demo.SavedRoutesDemo;
 
 public class SavedRoutesFragment extends Fragment {
 

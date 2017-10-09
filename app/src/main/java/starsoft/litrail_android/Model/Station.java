@@ -1,15 +1,28 @@
 package starsoft.litrail_android.Model;
 
-public class Station {
-    public final String name;
-    public final String description;
-    public final Double longitude;
-    public final Double latitude;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Station(String name, String description, Double longitude, Double latitude) {
+public class Station {
+
+    @SerializedName("name")
+    @Expose
+    public String name;
+    @SerializedName("longitude")
+    @Expose
+    public double longitude;
+    @SerializedName("latitude")
+    @Expose
+    public double latitude;
+
+    public Station() {
+    }
+
+    public Station(String name, double longitude, double latitude) {
         this.name = name;
-        this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
     }
+
+
 }

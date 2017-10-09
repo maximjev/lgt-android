@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.Model.Message;
-import starsoft.litrail_android.Model.MessagesDemo;
+import starsoft.litrail_android.Model.Demo.MessagesDemo;
 import starsoft.litrail_android.R;
 
 public class MessagesFragment extends Fragment {

@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -99,10 +101,23 @@ public class TimetableSearchFragment extends Fragment {
         // paspaustas paieškos mygtukas, pateikiantis paieškos užklausą kontroleriui
         searchButton.setOnClickListener(v -> {
             if (!isInputValid(v.getContext(), departureStationButton, arrivalStationButton)) {
-                Toast.makeText(v.getContext(), "Klaida. Nenurodytas pilnas maršrutas.", Toast.LENGTH_SHORT).show();
+                Snackbar snack = Snackbar.make(getActivity().findViewById(R.id.content),
+                        "Klaida. Nenurodytas pilnas maršrutas.", Snackbar.LENGTH_LONG);
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
+                        snack.getView().getLayoutParams();
+                params.bottomMargin = 145;
+                snack.getView().setLayoutParams(params);
+                snack.show();
             }
+
             else if (departureStationButton.getText().equals(arrivalStationButton.getText())) {
-                Toast.makeText(v.getContext(), "Tokiam maršrutui traukinių nereikia!", Toast.LENGTH_SHORT).show();
+                Snackbar snack = Snackbar.make(getActivity().findViewById(R.id.content),
+                        "Tokiam maršrutui traukinių nereikia!", Snackbar.LENGTH_LONG);
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
+                        snack.getView().getLayoutParams();
+                params.bottomMargin = 145;
+                snack.getView().setLayoutParams(params);
+                snack.show();
             }
             else {
                 // TODO: Perduoti datą užklausai

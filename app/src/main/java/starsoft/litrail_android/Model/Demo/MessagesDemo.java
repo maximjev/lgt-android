@@ -1,7 +1,9 @@
-package starsoft.litrail_android.Model;
+package starsoft.litrail_android.Model.Demo;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import starsoft.litrail_android.Model.Message;
 
 public class MessagesDemo {
 

@@ -14,7 +14,7 @@ import java.util.Calendar;
 import starsoft.litrail_android.MainActivity;
 import starsoft.litrail_android.Model.RouteTime;
 import starsoft.litrail_android.R;
-import starsoft.litrail_android.Model.RouteTimeDemo;
+import starsoft.litrail_android.Model.Demo.RouteTimeDemo;
 
 public class RouteDataFragment extends Fragment {
 
@@ -26,6 +26,7 @@ public class RouteDataFragment extends Fragment {
     public TextView departureDateTextView;
     public TextView arrivalLocationTextView;
     private OnListFragmentInteractionListener mListener;
+
 
     public RouteDataFragment() {
     }
@@ -50,7 +51,9 @@ public class RouteDataFragment extends Fragment {
         departureDateTextView = (TextView) view.findViewById(R.id.departureDateTextView);
 
         ((MainActivity)getActivity()).showHomeAsUp(true);
+
         getActivity().setTitle("Maršruto tvarkaraštis");
+        ((MainActivity) getActivity()).menu.findItem(R.id.action_favorite).setVisible(true);
 
         Bundle bundle = getArguments();
         if (bundle.getString("DEPARTURE_STATION") != null)
@@ -85,6 +88,12 @@ public class RouteDataFragment extends Fragment {
         }
 //        else {
 //        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((MainActivity) getActivity()).menu.findItem(R.id.action_favorite).setVisible(false);
     }
 
     @Override

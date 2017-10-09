@@ -1,4 +1,4 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,6 +6,9 @@
     android:tag="@string/timetableSearchTAG"
     tools:context="starsoft.litrail_android.Fragments.TimetableSearchFragment">
 
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="361dp"
@@ -32,17 +35,6 @@
             app:layout_constraintTop_toBottomOf="@+id/departurePlaceLabelTimetableSearch"
             app:srcCompat="@drawable/ic_user_location"
             tools:ignore="ContentDescription" />
-
-        <View
-            android:id="@+id/pinLineTimetableSearch"
-            android:layout_width="1dp"
-            android:layout_height="35dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="8dp"
-            android:background="#8dffffff"
-            app:layout_constraintLeft_toLeftOf="@+id/userPinSearch"
-            app:layout_constraintTop_toBottomOf="@+id/userPinSearch" />
 
         <ImageView
             android:id="@+id/destinationPinSearch"
@@ -125,3 +117,4 @@
             app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
+        </ScrollView>

@@ -24,16 +24,23 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
-import starsoft.litrail_android.Controller.RoutesReader;
 import starsoft.litrail_android.MainActivity;
-import starsoft.litrail_android.Model.Route;
-import starsoft.litrail_android.Model.Station;
+import starsoft.litrail_android.Model.PinStation;
+import starsoft.litrail_android.Model.RouteMap;
 import starsoft.litrail_android.R;
-import starsoft.litrail_android.Controller.StationsReader;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
     public static final String TAG = "MapFragment";
@@ -43,7 +50,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private OnFragmentInteractionListener mListener;
 
     public MapFragment() {
-        // Required empty public constructor
     }
 
     public static MapFragment newInstance() {
@@ -100,21 +106,72 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         void onFragmentInteraction(Uri uri);
     }
 
+    //TODO: Ne visas spalvas paima/yra juodos spalvos maršutų
+    //TODO: Stočių koordinatės JSON faile nėra tikslios
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        List<Station> stations;
-        List<Route> routes;
+        Collection<PinStation> pinStations;
+        Collection<RouteMap> routes;
 
         try {
-            stations = (new StationsReader(getContext(), R.raw.stations)).readJsonStream();
-            for (Station station : stations) {
-                LatLng stationPosition = new LatLng(station.latitude, station.longitude);
-                googleMap.addMarker(new MarkerOptions().position(stationPosition).title(station.name)
-                        .snippet(station.description)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin));
-            routes = (new RoutesReader(getContext(), R.raw.routes)).readJsonStream();
+            //Skaito stations JSON failą
+            Gson gson = new Gson();
+            JsonReader jsonReader = getReader(R.raw.stations);
+            pinStations = gson.fromJson(jsonReader, new TypeToken<Collection<PinStation>>(){}.getType());
+            jsonReader.close();
 
+
+            //Skaito routes JSON failą
+            Reader readerRoutes = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.routes)));
+            jsonReader = getReader(R.raw.routes);
+            routes = gson.fromJson(jsonReader, new TypeToken<Collection<RouteMap>>(){}.getType());
+            jsonReader.close();
+
+            //Iteracija
+
+            for (PinStation pinStation : pinStations) {
+                LatLng stationPosition = new LatLng(pinStation.latitude, pinStation.longitude);
+                googleMap.addMarker(new MarkerOptions().position(stationPosition).title(pinStation.name)
+                        .snippet(pinStation.description)).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin));
             }
-        } catch (IOException e) {
+
+            List<Integer> colors = new ArrayList<>();
+
+            colors.add(Color.parseColor("#F44336"));
+            colors.add(Color.parseColor("#E91E63"));
+            colors.add(Color.parseColor("#9C27B0"));
+            colors.add(Color.parseColor("#3F51B5"));
+            colors.add(Color.parseColor("#2196F3"));
+            colors.add(Color.parseColor("#00BCD4"));
+            colors.add(Color.parseColor("#009688"));
+            colors.add(Color.parseColor("#4CAF50"));
+            colors.add(Color.parseColor("#CDDC39"));
+            colors.add(Color.parseColor("#FFC107"));
+            colors.add(Color.parseColor("#795548"));
+            colors.add(Color.parseColor("#9E9E9E"));
+            colors.add(Color.parseColor("#FF5722"));
+
+            int pos = 0;
+
+            for (RouteMap routeMap : routes) {
+                List<LatLng> latLngs = new ArrayList<>();
+                PolylineOptions polylineOptions = new PolylineOptions().clickable(false);
+
+                for (int i = 0; i < routeMap.routeStations.size(); i++) {
+                    latLngs.add(new LatLng(routeMap.routeStations.get(i).latitude, routeMap.routeStations.get(i).longitude));
+                }
+                Polyline polyline = googleMap.addPolyline(polylineOptions);
+                polyline.setWidth(routeMap.strokeWeight);
+                polyline.setPoints(latLngs);
+
+//                int color = Color.parseColor((routeMap.routeColor.isEmpty())?"#F44336" : routeMap.routeColor );
+                polyline.setColor(colors.get(pos++));
+                if (pos >= colors.size())
+                        pos = 0;
+            }
+
+        } catch (Exception e) {
             Log.d(TAG, "File handling exception");
             e.printStackTrace();
         }
@@ -152,8 +209,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         initMapStyle(googleMap);
 
         LatLng centerMapView = new LatLng(55.315231, 24.189048);
-        googleMap.addMarker(new MarkerOptions().position(centerMapView).title("Marker in center")
-                .snippet("snippet snippet snippet snippet snippet...")).setIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(centerMapView));
         googleMap.setMinZoomPreference(7);
     }
@@ -170,5 +225,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
+    }
+
+    private JsonReader getReader(int resourceID) {
+        Reader readerStations = new BufferedReader(new InputStreamReader(getResources().openRawResource(resourceID)));
+        return new JsonReader(readerStations);
     }
 }

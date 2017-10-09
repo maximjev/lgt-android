@@ -7,12 +7,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.MapView;
 
@@ -26,7 +29,8 @@ import starsoft.litrail_android.Model.SavedRoute;
 // TODO: Implement backstack management properly / fix the current one
 
 public class MainActivity extends AppCompatActivity implements TimetableSearchFragment.OnFragmentInteractionListener, SavedRoutesFragment.OnListFragmentInteractionListener {
-
+    public Menu menu;
+    private boolean addBookmarkToggle = false;
     private Fragment timetableSearchFragment;
     private Fragment savedRoutesFragment;
     private Fragment mapFragment;
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
             }
         });
 
-//        // Fixing Later Map loading Delay
+        // Fixing Map loading Delay
         new Thread(() -> {
             try {
                 MapView mv = new MapView(getApplicationContext());
@@ -131,8 +135,9 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
     // Inicializuojamas viršutinis meniu langas
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.toolbar, menu);
+        menu.findItem(R.id.action_favorite).setVisible(false);
+        this.menu = menu;
         return true;
     }
 
@@ -140,6 +145,24 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_favorite:
+                    addBookmarkToggle = !addBookmarkToggle;
+                    if (addBookmarkToggle) {
+                        menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_bookmark_added);
+                        Snackbar snack = Snackbar.make(findViewById(R.id.content),
+                                "Maršrutas sėkmingai pridėtas prie žymių.", Snackbar.LENGTH_LONG).setAction("Anuliuoti", v -> {
+                                    addBookmarkToggle = false;
+                                    menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_bookmark_not_added);
+                                });
+                                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
+                                        snack.getView().getLayoutParams();
+                        params.bottomMargin = 145;
+                        snack.getView().setLayoutParams(params);
+                        snack.show();
+                    }
+                    else
+                        menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_bookmark_not_added);
+                return true;
             case R.id.action_report:
 
                 return true;
@@ -152,7 +175,10 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
         }
     }
 
+
+
     @Override
+    // TODO: fix crashing
     public void onBackPressed() {
 //        Log.d("methods", "onBackPressed");
 //        if (getFragmentManager().getBackStackEntryCount() > 0 ){

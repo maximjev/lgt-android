@@ -195,6 +195,7 @@ public class MainActivity extends AppCompatActivity implements TimetableSearchFr
         dialogBuilder.setTitle("Apie mus");
         dialogBuilder.setMessage("Litrail-android prototipas. \n" +
                 "Komandos Starsoft projektinis darbas.");
+        dialogBuilder.setIcon(R.mipmap.ic_launcher);
         dialogBuilder.setPositiveButton("Uždaryti langą", (dialog, which) -> dialog.dismiss());
         dialogBuilder.create().show();
     }

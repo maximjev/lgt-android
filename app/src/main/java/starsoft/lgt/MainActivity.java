@@ -2,6 +2,7 @@ package starsoft.lgt;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,6 +14,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import starsoft.lgt.utils.BottomNavigationViewExpander;
 import starsoft.lgt.utils.OnFragmentInteractionListener;
@@ -101,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.about_us:
                 showAboutUsDialog();
                 return true;
+            case R.id.logout:
+                signOut();
+                return true;
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -109,6 +117,13 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        Toast.makeText(this, "You are logged out", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
     private void showBookmarkSnackBack() {
         menu.findItem(R.id.action_favorite).setIcon(R.drawable.ic_bookmark_added);
         Snackbar snack = Snackbar.make(findViewById(R.id.content),
@@ -123,15 +138,14 @@ public class MainActivity extends AppCompatActivity implements
     private void showAboutUsDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle("Apie mus");
-        dialogBuilder.setMessage("Litrail-android prototipas. \n" +
-                "Komandos Starsoft projektinis darbas.");
+        dialogBuilder.setMessage("Litrail-android prototipas. \n");
         dialogBuilder.setIcon(R.mipmap.ic_launcher);
         dialogBuilder.setPositiveButton("Uždaryti langą", (dialog, which) -> dialog.dismiss());
         dialogBuilder.create().show();
     }
 
     @Override
-    public void onFragmentInteraction(String action, Bundle args) {
+    public void  onFragmentInteraction(String action, Bundle args) {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         Fragment newFragment = null;
 

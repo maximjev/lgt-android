@@ -14,5 +14,8 @@
         android:id="@+id/about_us"
         android:title="@string/about_us"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/logout"
+        android:title="Atsijungti"
+        app:showAsAction="never"/>
 </menu>

@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         initialiseMapView();
         loadJSONResources();
 
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         // Destroy SplashActivity from backstack
         finish();
     }

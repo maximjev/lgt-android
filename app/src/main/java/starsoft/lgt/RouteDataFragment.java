@@ -1,5 +1,6 @@
 package starsoft.lgt;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -37,6 +38,7 @@ public class RouteDataFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    @SuppressLint("DefaultLocale")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

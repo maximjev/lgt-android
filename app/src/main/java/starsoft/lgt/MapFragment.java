@@ -201,7 +201,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onLocationChanged(Location location) {
             mCurrentLocation = location;
             updateUserMarker();
-            Log.d(TAG, "lat: " + location.getLatitude() + "lng: " + location.getLongitude());
+            //Log.d(TAG, "lat: " + location.getLatitude() + "lng: " + location.getLongitude());
         }
 
         @Override

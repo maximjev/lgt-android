@@ -1,5 +1,6 @@
 package starsoft.lgt;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -49,6 +50,7 @@ public class TimetableSearchFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     View.OnClickListener searchButtonListener = new View.OnClickListener() {
+        @SuppressLint("DefaultLocale")
         @Override
         public void onClick(View view) {
             if (!isInputValid(mDepartureStationButton) || !isInputValid(mArrivalStationButton)) {
@@ -60,7 +62,7 @@ public class TimetableSearchFragment extends Fragment {
                 args.putString("DEPARTURE_STATION", mDepartureStationButton.getText().toString());
                 args.putString("ARRIVAL_STATION", mArrivalStationButton.getText().toString());
                 args.putString("DEPARTURE_DATE", String.format("%1$tY-%1$tm-%1$td", mDepartureDate));
-                openTimetableFragment("action_timetable", args);
+                openTimetableFragment("open_timetable", args);
             }
         }
 
@@ -220,7 +222,12 @@ public class TimetableSearchFragment extends Fragment {
             return "Vilnius";
         else if (data.startsWith("Klaipėd"))
             return "Klaipėda";
-
+        else if (data.startsWith("Kaun"))
+            return "Kaunas";
+        else if(data.startsWith("Radviliš"))
+            return "Radviliškis";
+        else if(data.startsWith("Panevėž"))
+            return "Panevėžys";
         return "Default";
     }
 

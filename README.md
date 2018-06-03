@@ -1,8 +1,9 @@
 # lgt-android
 Mobilioji lietuvos geležinkelių tvarkaraščių aplikacija Android platformai
+Perimta iš "Starsoft" komandos
 
-PSI dokumentai - https://drive.google.com/drive/folders/0B0t5BX8SpH8gdjNZcjNzcW5KUUk?usp=sharing
+Darbą tęsia The HopeDevs komanda
+PSI dokumentai - https://drive.google.com/drive/folders/1O62pCfgDqfaBDydrQ5WYDtft_TYMimpF?usp=sharing
 
 # Specifikacijos
-* Target Android device: Nexus 5X, 5,2" screen
 * Minimal android API: 23
